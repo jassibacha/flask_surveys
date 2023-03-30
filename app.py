@@ -9,14 +9,14 @@ app.config['SECRET_KEY'] = "dfsa87dfsdkj3k4389s7d"
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 debug = DebugToolbarExtension(app)
 
-SESSION_RESPONSES = "responses"
+#SESSION_RESPONSES = "responses"
 
 # Pass survey to a variable
 survey = satisfaction_survey
 # Responses list
 responses = []
 # Current Question
-question_count = 0
+# question_count = 0
 
 @app.route('/')
 def home_page():
@@ -30,17 +30,18 @@ def start_survey():
     return redirect('/questions/0')
 
 @app.route('/questions/<int:question_id>')
-def questions_page(question_id, question_count):
+def questions_page(question_id):
     """Build the question page"""
-    question_count == len(responses)
-    print('QUESTION ID:', question_id, ' QUESTION COUNT:', question_count, 'RESPONSES LENGTH:', len(responses))
-    if question_id == question_count:
+    #question_count == len(responses)
+    #print('QUESTION ID:', question_id, ' QUESTION COUNT:', question_count, 'RESPONSES LENGTH:', len(responses))
+    print('QUESTION ID:', question_id, 'RESPONSES LENGTH:', len(responses))
+    if question_id == len(responses):
         print('ID & COUNT MATCH, GO AHEAD.')
         # question_count += 1 #increment count
-        return render_template('question.html', survey=survey, question_id=question_id, question_count=question_count)
+        return render_template('question.html', survey=survey, question_id=question_id)
     else:
-        print('ID & COUNT DONT MATCH, REDIRECT TO CORRECT QUESTION #', question_count)
-        return redirect(f"/questions/{question_count}")
+        print('ID & COUNT DONT MATCH, REDIRECT TO CORRECT QUESTION #', len(responses))
+        return redirect(f"/questions/{len(responses)}")
 
 
 @app.route('/answer/<int:question_id>', methods=["POST"])
