@@ -30,13 +30,19 @@ def questions_page(question_id):
 
 @app.route('/answer/<int:question_id>', methods=["POST"])
 def answer_page(question_id):
-    
+    """Answer POST to store answer in global responses list"""
     answer = request.form['answer'] #how can I do this with radio buttons ?
-    print(answer)
+    #print(answer)
     responses.append(answer)
-    print(responses)
+    print('Current Responses List:', responses)
+    # Is there another question?
     if question_id == len(survey.questions) - 1:
-        return redirect('/thanks')
+        return redirect('/thanks') # no more, head to thank you page
     else:
         question_id += 1 # increment question_id
-        return redirect(f"/questions/{question_id}")
+        return redirect(f"/questions/{question_id}") # go to next question
+
+@app.route('/thanks')
+def thanks_page():
+    """Thank you page"""
+    return render_template('thanks.html')
