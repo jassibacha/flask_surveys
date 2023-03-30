@@ -1,0 +1,16 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+header {
+    background-color: darkslateblue;
+    padding: 10px;
+    font-size: 24px;
+    color: #fff;
+    text-align: center;
+}
+main#content {
+    margin: 30px auto;
+    padding: 0 20px;
+    max-width: 800px;
+}
