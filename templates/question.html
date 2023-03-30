@@ -1,0 +1,19 @@
+{% extends 'base.html' %} {% block title %}Survey{% endblock %} {% block content
+%} {% set curr_question = survey.questions[question_id] %} {% if curr_question
+%}
+<form action="/answer/{{question_id}}" method="post">
+    <label for="answer">{{curr_question.question}}</label>
+    {# {% curr_question.choices[0]%} #} {% for choice in curr_question.choices
+    %}
+    <input
+        type="radio"
+        name="answer"
+        value="{{ choice }}"
+        class="{{ loop.index0 }}"
+    />
+    {{ choice }} {% endfor %}
+    <button>Next Question</button>
+    {#
+    <p>{{survey.instructions}}</p>
+    #} {% endif %} {# #} {% endblock %}
+</form>
