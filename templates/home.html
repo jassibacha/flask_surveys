@@ -4,8 +4,9 @@
 <p>{{survey.instructions}}</p>
 {% endif %}
 
-<a href="{{ url_for('questions_page', question_id=0) }}">Start Survey</a>
+<a href="/start" class="button">Start Survey</a>
 {#
+<a href="{{ url_for('questions_page', question_id=0) }}">Start Survey</a>
 <form action="/movies/new" method="POST">
     <input type="text" placeholder="movie title" name="title" />
     <button>Submit</button>

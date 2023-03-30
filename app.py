@@ -24,7 +24,7 @@ def home_page():
     # session['fav_number'] = 42
     return render_template('home.html', survey=survey)
 
-@app.route('/start', methods=["POST"])
+@app.route('/start')
 def start_survey():
     """BEGIN THE SURVEY"""
     return redirect('/questions/0')
@@ -32,15 +32,14 @@ def start_survey():
 @app.route('/questions/<int:question_id>')
 def questions_page(question_id):
     """Build the question page"""
-    #question_count == len(responses)
-    #print('QUESTION ID:', question_id, ' QUESTION COUNT:', question_count, 'RESPONSES LENGTH:', len(responses))
+
     print('QUESTION ID:', question_id, 'RESPONSES LENGTH:', len(responses))
+    # If the question id matches the length of responses, we're on the right question
     if question_id == len(responses):
         print('ID & COUNT MATCH, GO AHEAD.')
-        # question_count += 1 #increment count
         return render_template('question.html', survey=survey, question_id=question_id)
     else:
-        print('ID & COUNT DONT MATCH, REDIRECT TO CORRECT QUESTION #', len(responses))
+        flash(f"ERROR: Please follow the survey from start to finish, redirecting you to the next question in order.", 'error')
         return redirect(f"/questions/{len(responses)}")
 
 

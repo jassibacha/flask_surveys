@@ -2,17 +2,19 @@
 %} {% set curr_question = survey.questions[question_id] %} {% if curr_question
 %}
 <form action="/answer/{{question_id}}" method="post">
-    <label for="answer">{{curr_question.question}}</label>
-    {# {% curr_question.choices[0]%} #} {% for choice in curr_question.choices
-    %}
-    <input
-        type="radio"
-        name="answer"
-        value="{{ choice }}"
-        class="{{ loop.index0 }}"
-    />
-    {{ choice }} {% endfor %}
-    <button>Next Question</button>
+    <label for="answer">{{curr_question.question}}</label><br />
+    {# {% curr_question.choices[0]%} #}
+    <div class="answers">
+        {% for choice in curr_question.choices %}
+        <input
+            type="radio"
+            name="answer"
+            value="{{ choice }}"
+            class="{{ loop.index0 }}"
+        />
+        {{ choice }} {% endfor %}
+    </div>
+    <button class="button">Next Question</button>
     {#
     <p>{{survey.instructions}}</p>
     #} {% endif %} {# #} {% endblock %}

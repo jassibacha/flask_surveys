@@ -18,7 +18,7 @@
             if messages %}
             <section class="messages">
                 {% for category,msg in messages %}
-                <p class="{{category}}">{{msg}}</p>
+                <div class="{{category}}">{{msg}}</div>
                 {% endfor %}
             </section>
             {% endif %} {% endwith %} {% block content %} {% endblock %}
