@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, flash,  jsonify, session
+from flask import Flask, request, render_template, redirect, flash, jsonify, session
 # from random import randint,  choice, sample
 from flask_debugtoolbar import DebugToolbarExtension
 from surveys import *
@@ -14,13 +14,17 @@ debug = DebugToolbarExtension(app)
 # Pass survey to a variable
 survey = satisfaction_survey
 # Responses list
-responses = []
+# responses = []
+#session['responses'] = []
 # Current Question
-# question_count = 0
+
 
 @app.route('/')
 def home_page():
     """Shows home page"""
+    if 'responses' not in session:
+        session['responses'] = []
+    print(session)
     # session['fav_number'] = 42
     return render_template('home.html', survey=survey)
 
@@ -32,7 +36,8 @@ def start_survey():
 @app.route('/questions/<int:question_id>')
 def questions_page(question_id):
     """Build the question page"""
-
+    responses = session['responses']
+    print(session['responses'])
     print('QUESTION ID:', question_id, 'RESPONSES LENGTH:', len(responses))
     # If the question id matches the length of responses, we're on the right question
     if question_id == len(responses):
@@ -46,9 +51,15 @@ def questions_page(question_id):
 @app.route('/answer/<int:question_id>', methods=["POST"])
 def answer_page(question_id):
     """Answer POST to store answer in global responses list"""
-    answer = request.form['answer'] #how can I do this with radio buttons ?
-    #print(answer)
+
+
+    answer = request.form['answer'] 
+
+    # Assign to responses var
+    responses = session['responses']
     responses.append(answer)
+    session['responses'] = responses
+
     print('Current Responses List:', responses)
     # Is there another question?
     if question_id == len(survey.questions) - 1:
